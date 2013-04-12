@@ -1,4 +1,5 @@
-/*position of Knight is given on a chessboard.
+/*
+ * Position of Knight is given on a chessboard.
  * Return me something (adjacency matrix or list or anything) which shows all
  * the positions the knight can reach upto from a given position.
  * I must be able to tell, from what is returned, if the position is reachable or not
@@ -20,18 +21,19 @@ using namespace std;
 struct coord
 {
   int row;
-	int col;
+  int col;
 };
 
 coord possibleMoves[] = {	{-2, +1},
-							{-1, +2},
-							{+1, +2},
-							{+2, +1},
-							{+2, -1},
-							{+1, -2},
-							{-1, -2},
-							{-2, -1}
-						};
+				{-1, +2},
+				{+1, +2},
+				{+2, +1},
+				{+2, -1},
+				{+1, -2},
+				{-1, -2},
+				{-2, -1}
+			};
+                        
 int isValid(int r, int c)
 {
 	if((r >= 0 && r <= 7)&&
@@ -118,7 +120,7 @@ public:
 	static bool isOccupied(int r, int c)
 	{
 		if(isValid(r, c))
-			return bChessBoard[r][c];
+		        return bChessBoard[r][c];
 		return false;
 	}
 
@@ -148,6 +150,7 @@ public:
 		return aNode;
 	}
 };
+
 bool graphNode::bChessBoard[POSITIONS][POSITIONS];
 
 void backTrackAdjList(graphNode *root, int row, int col)
@@ -179,6 +182,7 @@ void dfsVisit(graphNode* root)
 
 	return;
 }
+
 void freeGraph(graphNode* root)
 {
 	if(!root)
@@ -212,41 +216,4 @@ void getAllPositionsAdjList()
 
 	freeGraph(root);
 	return;
-}
-
-#else
-
-#include<iostream>
-#include<cstdio>
-#include<cstdlib>
-#include<cassert>
-
-using namespace std;
-
-int xyz(char **str)
-{
-	char* (*str1)[] = (char * (*)[])str;
-	int num = sizeof(str1);
-	int denom = sizeof((*str1)[0]);
-	int ret = num/denom; //sizeof(str)/sizeof(str[0]);
-	return ret;
-}
-int intSizeArray(int *arr)
-{
-	int ret = sizeof(arr)/sizeof(arr[0]);
-	return ret;
-}
-void getAllPositions()
-{
-	char *str[] = {"samsung", "sis", "sri"};
-	int num = sizeof(str);
-	int denom = sizeof(str[0]);
-	int ret = sizeof(str)/sizeof(str[0]);
-	cout << "in  getAllPositions(), ret = " << ret << endl;
-	ret = xyz(str);
-	cout << "for str , ret = " << ret << endl;
-	int arr[] = {0, 1, 2};
-	ret = intSizeArray(arr);
-	cout << "for int arr , ret = " << ret << endl;
-
 }

@@ -120,7 +120,7 @@ public:
 	static bool isOccupied(int r, int c)
 	{
 		if(isValid(r, c))
-		        return bChessBoard[r][c];
+			return bChessBoard[r][c];
 		return false;
 	}
 

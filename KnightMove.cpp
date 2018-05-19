@@ -217,3 +217,77 @@ void getAllPositionsAdjList()
 	freeGraph(root);
 	return;
 }
+
+
+/*
+ * Knight's Move alternate method: --- Based on following Link
+ * url : http://algorithms.tutorialhorizon.com/backtracking-knights-tour-problem/
+ *
+ */
+
+#include"KnightMove.h"
+
+vector<vector<int> > KnightMove::getBoard(){
+	return *board;
+}
+KnightMove::KnightMove(int n): N(n) {
+	board = new vector<vector<int> >(N, vector<int>(N, 0));
+	path = 0;
+}
+
+bool KnightMove::canMove(int r , int c){
+	if(r>=0 && c>= 0 && r < N && c < N)
+		return true;
+	return false;
+}
+
+bool KnightMove::solve(int r, int c, int index, int path){
+	if ((*board)[r][c] != 0)
+		return false;
+	if (index >= N * N - 1)
+		return true;
+	(*board)[r][c] = path;
+	if (canMove(r - 2, c - 1) && solve(r - 2, c - 1, index + 1, path + 1))
+		return true;
+	if (canMove(r - 2, c + 1) && solve(r - 2, c + 1, index + 1, path + 1))
+		return true;
+	if (canMove(r - 1, c + 2) && solve(r - 1, c + 2, index + 1, path + 1))
+		return true;
+	if (canMove(r + 1, c + 2) && solve(r + 1, c + 2, index + 1, path + 1))
+		return true;
+	if (canMove(r + 2, c + 1) && solve(r + 2, c + 1, index + 1, path + 1))
+		return true;
+	if (canMove(r + 2, c - 1) && solve(r + 2, c - 1, index + 1, path + 1))
+		return true;
+	if (canMove(r + 1, c - 2) && solve(r + 1 , c - 2, index + 1, path + 1))
+		return true;
+	if (canMove(r - 1, c - 2) && solve(r - 1, c - 2, index + 1, path + 1))
+		return true;
+
+	(*board)[r][c] = 0;
+	return false;
+}
+
+namespace KnightMovement{
+	template<typename T>
+	void print2DVector(const vector<vector<T> > &v){
+#if 0 //classic
+		for(int i=0; i< v.size(); i++){
+			for(int j=0; j< v[0].size(); j++)
+				cout << v[i][j] << "\t";
+			cout<< endl;
+		}
+#endif
+		//modern
+		for(auto &r : v){
+			for(auto& e: r)
+				cout << e << "\t";
+			cout << endl;
+		}
+	}
+}
+void KnightMove::KnightMoveSolution(int N){
+	KnightMove km(N);
+	km.solve(0, 0, 0, 0);
+	KnightMovement::print2DVector(km.getBoard());
+}
